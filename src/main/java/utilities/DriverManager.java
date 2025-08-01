@@ -65,12 +65,12 @@ public class DriverManager {
 
         // Mobile
         if (platform.getDeviceName() != null) {
+            bstackOptions.put("deviceName", platform.getDeviceName());
             capabilities.setCapability("browserName", platform.getBrowserName());
-            capabilities.setCapability("deviceName", platform.getDeviceName());
-            capabilities.setCapability("osVersion", platform.getOsVersion());
-            capabilities.setCapability("realMobile", true);
+            bstackOptions.put("osVersion", platform.getOsVersion());
+            bstackOptions.put("realMobile", true);
             if (platform.getDeviceOrientation() != null) {
-                capabilities.setCapability("deviceOrientation", platform.getDeviceOrientation());
+                bstackOptions.put("deviceOrientation", platform.getDeviceOrientation());
             }
         } else {
             // Desktop
@@ -83,8 +83,10 @@ public class DriverManager {
         }
 
         capabilities.setCapability("bstack:options", bstackOptions);
-
-        System.out.println("Launching BrowserStack with capabilities: " + capabilities);
+        System.out.println("=== RAW CAPABILITIES ===");
+        System.out.println(capabilities.asMap()); // or convert to JSON if you have a library
+        System.out.println("========================");
+        //System.out.println("Launching BrowserStack with capabilities: " + capabilities);
         return new RemoteWebDriver(
                 new URL("https://" + config.getUserName() + ":" + config.getAccessKey() + "@hub.browserstack.com/wd/hub"),
                 capabilities

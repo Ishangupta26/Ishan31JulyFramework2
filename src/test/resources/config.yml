@@ -14,8 +14,9 @@ browserstack:
       browserName: Safari
       browserVersion: 15.6
     - deviceName: iPhone 15 Pro
+      os: iOS
       osVersion: 17
-      browserName: safari
+      browserName: Safari
       deviceOrientation: portrait
   browserstackLocal: false
   buildName: browserstack-build-1
