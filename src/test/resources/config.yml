@@ -1,0 +1,30 @@
+userName: charugupta_IJQ5cW
+accessKey: VAotHA5j6QSKjcy28XmT
+framework: testng
+
+# Remote execution via BrowserStack
+browserstack:
+  platforms:
+    - os: Windows
+      osVersion: 10
+      browserName: Chrome
+      browserVersion: 120.0
+    - os: OS X
+      osVersion: Monterey
+      browserName: Safari
+      browserVersion: 15.6
+    - deviceName: iPhone 15 Pro
+      osVersion: 17
+      browserName: safari
+      deviceOrientation: portrait
+  browserstackLocal: false
+  buildName: browserstack-build-1
+  projectName: BrowserStack Sample
+
+# Local execution section
+local:
+  browsers:
+    - browserName: edge
+      browserVersion: latest
+    - browserName: chrome
+      browserVersion: latest
