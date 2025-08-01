@@ -14,8 +14,6 @@ import java.util.List;
 
 public class SampleTest {
 
-    private WebDriver driver;
-
     @DataProvider(name = "platformProvider", parallel = true)
     public Object[][] platformProvider() {
         ExecutionConfig config = new ConfigReader().getExecutionConfig();
@@ -36,25 +34,20 @@ public class SampleTest {
         return data.toArray(new Object[0][0]);
     }
 
-    @BeforeMethod
-    public void setUp(Object[] testData) {
-        Object platform = testData[0];
-        driver = DriverManager.createDriver(platform);
-    }
-
     @Test(dataProvider = "platformProvider")
     public void testGoogleHomePage(Object platform) {
-        driver.get("https://www.google.com");
-        String title = driver.getTitle();
-        System.out.println("Platform: " + platform.toString());
-        System.out.println("Page Title: " + title);
-        assert title.toLowerCase().contains("google");
-    }
+        // Create and set the driver per test thread
+        WebDriver driver = DriverManager.createDriver(platform);
+        DriverManager.setDriver(driver);
 
-    /*@AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+        try {
+            driver.get("https://www.google.com");
+            String title = driver.getTitle();
+            System.out.println("Platform: " + platform.toString());
+            System.out.println("Page Title: " + title);
+            assert title.toLowerCase().contains("google");
+        } finally {
+            DriverManager.quitDriver(); // Ensure driver is closed even on failure
         }
-    }*/
+    }
 }

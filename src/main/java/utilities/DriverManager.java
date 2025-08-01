@@ -19,15 +19,37 @@ import java.util.Map;
 
 public class DriverManager {
 
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
+
+    public static void setDriver(WebDriver drv) {
+        driver.set(drv);
+    }
+
+    public static void quitDriver() {
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
+        }
+    }
+
     public static WebDriver createDriver(Object platformObj) {
         try {
+            WebDriver createdDriver;
+
             if (platformObj instanceof BrowserStackPlatform) {
-                return createBrowserStackDriver((BrowserStackPlatform) platformObj);
+                createdDriver = createBrowserStackDriver((BrowserStackPlatform) platformObj);
             } else if (platformObj instanceof LocalBrowser) {
-                return createLocalDriver((LocalBrowser) platformObj);
+                createdDriver = createLocalDriver((LocalBrowser) platformObj);
             } else {
                 throw new IllegalArgumentException("Unsupported platform object: " + platformObj);
             }
+
+            return createdDriver;
+
         } catch (Exception e) {
             throw new RuntimeException("Driver creation failed: " + e.getMessage(), e);
         }
@@ -66,27 +88,26 @@ public class DriverManager {
         // Mobile
         if (platform.getDeviceName() != null) {
             bstackOptions.put("deviceName", platform.getDeviceName());
-            capabilities.setCapability("browserName", platform.getBrowserName());
             bstackOptions.put("osVersion", platform.getOsVersion());
             bstackOptions.put("realMobile", true);
             if (platform.getDeviceOrientation() != null) {
                 bstackOptions.put("deviceOrientation", platform.getDeviceOrientation());
             }
+            capabilities.setCapability("browserName", platform.getBrowserName());
         } else {
             // Desktop
             capabilities.setCapability("browserName", platform.getBrowserName());
-            if (platform.getDeviceOrientation() != null) {
-                capabilities.setCapability("browserVersion", platform.getBrowserVersion());
-            }
+            capabilities.setCapability("browserVersion", platform.getBrowserVersion());
             bstackOptions.put("os", platform.getOs());
             bstackOptions.put("osVersion", platform.getOsVersion());
         }
 
         capabilities.setCapability("bstack:options", bstackOptions);
+
         System.out.println("=== RAW CAPABILITIES ===");
-        System.out.println(capabilities.asMap()); // or convert to JSON if you have a library
+        System.out.println(capabilities.asMap());
         System.out.println("========================");
-        //System.out.println("Launching BrowserStack with capabilities: " + capabilities);
+
         return new RemoteWebDriver(
                 new URL("https://" + config.getUserName() + ":" + config.getAccessKey() + "@hub.browserstack.com/wd/hub"),
                 capabilities

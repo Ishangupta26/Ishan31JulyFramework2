@@ -18,6 +18,14 @@ browserstack:
       osVersion: 17
       browserName: Safari
       deviceOrientation: portrait
+    - deviceName: OnePlus 11R
+      osVersion: 13
+      browserName: chrome
+      deviceOrientation: portrait
+    - deviceName: OnePlus 9
+      osVersion: 13
+      browserName: chrome
+      deviceOrientation: portrait
   browserstackLocal: false
   buildName: browserstack-build-1
   projectName: BrowserStack Sample
