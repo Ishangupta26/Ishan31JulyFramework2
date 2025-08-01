@@ -42,8 +42,11 @@ public class DriverManager {
 
             if (platformObj instanceof BrowserStackPlatform) {
                 createdDriver = createBrowserStackDriver((BrowserStackPlatform) platformObj);
+                System.out.println("Thread ID: " + Thread.currentThread().getId() + " - Platform: " + platformObj.toString());
+
             } else if (platformObj instanceof LocalBrowser) {
                 createdDriver = createLocalDriver((LocalBrowser) platformObj);
+                System.out.println("Thread ID: " + Thread.currentThread().getId() + " - Platform: " + platformObj.toString());
             } else {
                 throw new IllegalArgumentException("Unsupported platform object: " + platformObj);
             }
