@@ -1,0 +1,3 @@
+[Thread-32] Creating WebDriver for platform: BrowserStackPlatform{os='Windows', osVersion='10', browserName='Chrome', browserVersion='120.0', deviceName='null', deviceOrientation='null'}
+[Thread-32] Platform: BrowserStackPlatform{os='Windows', osVersion='10', browserName='Chrome', browserVersion='120.0', deviceName='null', deviceOrientation='null'}
+[Thread-32] Page Title: Google

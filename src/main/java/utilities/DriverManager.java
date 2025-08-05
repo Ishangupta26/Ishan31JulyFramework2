@@ -42,11 +42,13 @@ public class DriverManager {
 
             if (platformObj instanceof BrowserStackPlatform) {
                 createdDriver = createBrowserStackDriver((BrowserStackPlatform) platformObj);
-                System.out.println("Thread ID: " + Thread.currentThread().getId() + " - Platform: " + platformObj.toString());
+                ThreadLogUtil.log("Creating WebDriver for platform: " + platformObj);
+
 
             } else if (platformObj instanceof LocalBrowser) {
                 createdDriver = createLocalDriver((LocalBrowser) platformObj);
-                System.out.println("Thread ID: " + Thread.currentThread().getId() + " - Platform: " + platformObj.toString());
+                ThreadLogUtil.log("Creating WebDriver for platform: " + platformObj);
+
             } else {
                 throw new IllegalArgumentException("Unsupported platform object: " + platformObj);
             }
@@ -108,7 +110,7 @@ public class DriverManager {
         capabilities.setCapability("bstack:options", bstackOptions);
 
         System.out.println("=== RAW CAPABILITIES ===");
-        System.out.println(capabilities.asMap());
+        System.out.println("Capabilites as Map:" + capabilities.asMap());
         System.out.println("========================");
 
         return new RemoteWebDriver(

@@ -1,0 +1,3 @@
+[Thread-33] Creating WebDriver for platform: BrowserStackPlatform{os='OS X', osVersion='Monterey', browserName='Safari', browserVersion='15.6', deviceName='null', deviceOrientation='null'}
+[Thread-33] Platform: BrowserStackPlatform{os='OS X', osVersion='Monterey', browserName='Safari', browserVersion='15.6', deviceName='null', deviceOrientation='null'}
+[Thread-33] Page Title: Google

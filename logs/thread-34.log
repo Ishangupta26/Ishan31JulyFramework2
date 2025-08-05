@@ -1,0 +1,3 @@
+[Thread-34] Creating WebDriver for platform: BrowserStackPlatform{os='iOS', osVersion='17', browserName='Safari', browserVersion='null', deviceName='iPhone 15 Pro', deviceOrientation='portrait'}
+[Thread-34] Platform: BrowserStackPlatform{os='iOS', osVersion='17', browserName='Safari', browserVersion='null', deviceName='iPhone 15 Pro', deviceOrientation='portrait'}
+[Thread-34] Page Title: Google

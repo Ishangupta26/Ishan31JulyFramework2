@@ -1,0 +1,3 @@
+[Thread-35] Creating WebDriver for platform: BrowserStackPlatform{os='null', osVersion='13', browserName='chrome', browserVersion='null', deviceName='OnePlus 11R', deviceOrientation='portrait'}
+[Thread-35] Platform: BrowserStackPlatform{os='null', osVersion='13', browserName='chrome', browserVersion='null', deviceName='OnePlus 11R', deviceOrientation='portrait'}
+[Thread-35] Page Title: Google
