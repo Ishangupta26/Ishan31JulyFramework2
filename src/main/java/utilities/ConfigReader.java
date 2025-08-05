@@ -21,9 +21,6 @@ public class ConfigReader {
 
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             executionConfig = mapper.readValue(inputStream, config.ExecutionConfig.class);
-            System.out.println("ConfigReader.executionConfig:\n" +
-                    mapper.writerWithDefaultPrettyPrinter().writeValueAsString(executionConfig));
-
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to read config.yml: " + e.getMessage(), e);

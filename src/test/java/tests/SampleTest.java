@@ -1,13 +1,13 @@
 package tests;
 
-import config.ExecutionConfig;
 import config.ExecutionConfig.BrowserStackPlatform;
 import config.ExecutionConfig.LocalBrowser;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.*;
-
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import utilities.ConfigReader;
 import utilities.DriverManager;
+import utilities.ThreadLogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class SampleTest {
 
     @DataProvider(name = "platformProvider", parallel = true)
     public Object[][] platformProvider() {
-        ExecutionConfig config = new ConfigReader().getExecutionConfig();
+        config.ExecutionConfig config = new ConfigReader().getExecutionConfig();
         List<Object[]> data = new ArrayList<>();
 
         if (config.getLocal() != null && config.getLocal().getBrowsers() != null) {
@@ -36,18 +36,22 @@ public class SampleTest {
 
     @Test(dataProvider = "platformProvider")
     public void testGoogleHomePage(Object platform) {
-        // Create and set the driver per test thread
         WebDriver driver = DriverManager.createDriver(platform);
         DriverManager.setDriver(driver);
 
         try {
+            ThreadLogUtil.log("Thread ID: " + Thread.currentThread().getId() + " - Platform: " + platform.toString());
+
             driver.get("https://www.google.com");
             String title = driver.getTitle();
-            System.out.println("Platform: " + platform.toString());
-            System.out.println("Page Title: " + title);
+
+            ThreadLogUtil.log("Page Title: " + title);
+
             assert title.toLowerCase().contains("google");
+
         } finally {
-            DriverManager.quitDriver(); // Ensure driver is closed even on failure
+            DriverManager.quitDriver();
+            ThreadLogUtil.printAndClear();  // Print grouped logs here after test ends
         }
     }
 }
